@@ -10,7 +10,7 @@ public class ReviewService {
     
     public static ID createReview(String movieId, String authorName, String comment,
         						  Integer qualification){
-		Object movieRelated = MovieOMDbAPI.getMovieById(movieId);
+		Object movieRelated = MovieOMDbAPIService.getMovieById(movieId);
 		if(!errorHandler.hasErrorReviewException(authorName, comment, qualification)){
             Review__c review = new Review__c(
                                 MovieId__c = movieId,
@@ -27,7 +27,7 @@ public class ReviewService {
         List<Review__c> reviews = new List<Review__c>();
         Map<Object, List<Review__c>> movieWithReviews = new Map<Object, List<Review__c>>();    
 		reviews = ReviewRepository.getReviewsByMovieId(movieId);
-        Object movieRelated = MovieOMDbAPI.getMovieById(movieId);
+        Object movieRelated = MovieOMDbAPIService.getMovieById(movieId);
         movieWithReviews.put(movieRelated, reviews);
         
 		return movieWithReviews;          

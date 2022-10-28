@@ -1,4 +1,4 @@
-public class MovieOMDbAPI {
+public class MovieOMDbAPIService {
     
     private static final OMDbApiSettings__mdt apiData = [SELECT ApiKeyValue__c, OMDbURLBase__c FROM OMDbApiSettings__mdt];  
     private static final String API_URL = apiData.OMDbURLBase__c;
@@ -10,7 +10,7 @@ public class MovieOMDbAPI {
 
     private ErrorHandler errorHandler;
     
-    public MovieOMDbAPI(ErrorHandler errorHandler) {
+    public MovieOMDbAPIService(ErrorHandler errorHandler) {
         this.errorHandler = errorHandler; 
     }
 
