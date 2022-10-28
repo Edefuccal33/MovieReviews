@@ -1,9 +1,12 @@
 public class IMDbAPIException extends Exception {
 	private Integer errorCode;
     private String message;
-    public IMDbAPIException(Integer errorCode, String message){
+    private String sourceError;
+
+    public IMDbAPIException(Integer errorCode, String message, String sourceError){
         this.errorCode = errorCode;
         this.message = message;
+        this.sourceError = sourceError;
     }
     public Integer getErrorCode(){
         return this.errorCode;
@@ -16,5 +19,11 @@ public class IMDbAPIException extends Exception {
     }
     public override void setMessage(String message){
         this.message = message;
+    }
+    public String getSourceError(){
+        return sourceError;
+    }
+    public void setSourceError(String sourceError){
+        this.sourceError = sourceError;
     }
 }

@@ -16,8 +16,13 @@ global with sharing class ReviewController {
             
     	}catch(IMDbAPIException e){
             RestContext.response.statusCode = e.getErrorCode();
+            //e.setSourceError(e.getTypeName());
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
-    	}
+
+    	}catch(System.CalloutException e){
+            RestContext.response.statusCode = 500;
+            RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
+        }
     }
     
     @HttpPost
@@ -29,10 +34,12 @@ global with sharing class ReviewController {
             
     	}catch(ReviewException e){
             RestContext.response.statusCode = e.getErrorCode();
+            //e.setSourceError(e.getTypeName());
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
             
     	}catch(IMDbAPIException e){
             RestContext.response.statusCode = e.getErrorCode();
+            //e.setSourceError(e.getTypeName());
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
     	}
     }
