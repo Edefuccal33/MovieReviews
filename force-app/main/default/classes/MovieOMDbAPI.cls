@@ -7,29 +7,24 @@ public class MovieOMDbAPI {
     private static final String GET_REQUEST_METHOD = 'GET';
     private static final String BY_ID_SEARCH_PARAMETER = 'i=';
     private static final String BY_TITLE_SEARCH_PARAMETER = 's='; //NO SE USA!!
+
+    private ErrorHandler errorHandler;
     
-    //Error messages from OMDb API:
-    private static final String ERROR_IMDb_INVALID_ID = 'Incorrect IMDb ID.';//da un código 200
-    private static final String ERROR_API_KEY_NOT_PROVIDED = 'No API key provided.';
-    private static final String ERROR_API_KEY_INVALID = 'Invalid API key!';
-    
-    //Custom error messages:
-    private static final String CUSTOM_MESSAGE_BAD_REQUEST = 'The movie Id provided does not exist on IMDb API.';
-    private static final String CUSTOM_MESSAGE_MISSIG_APIKEY = 'API Key was not provided.';
-    private static final String CUSTOM_MESSAGE_INVALID_APIKEY = 'Provided API Key is invalid.';
-    
-    public MovieOMDbAPI() {}
+    public MovieOMDbAPI(ErrorHandler errorHandler) {
+        this.errorHandler = errorHandler; 
+    }
 
     public static Object getMovieById(String movieId){
         
         final String endPoint = API_URL + BY_ID_SEARCH_PARAMETER + movieId + API_KEY;
         HttpResponse response = getResponse(endPoint);
-        
-        if(errorHandler(response) == null){
+
+        if (!errorHandler.hasErrorIMDbAPIException(response)){
             Object movie = (Object) JSON.deserializeUntyped(response.getBody());
             return movie;
         }
         return null;
+
     }
     
     //NO SE USA!!
@@ -38,7 +33,7 @@ public class MovieOMDbAPI {
         final String endPoint = API_URL + BY_TITLE_SEARCH_PARAMETER + title + API_KEY; 
         HttpResponse response = getResponse(endPoint);
         
-        if(errorHandler(response) == null){
+        if (!errorHandler.hasErrorIMDbAPIException(response)){
             Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
             List<Object> movies = (List<Object>) results.get('Search');
             return movies;
@@ -54,24 +49,6 @@ public class MovieOMDbAPI {
         HttpResponse response = http.send(request);
         
         return response;
-    }
-    
-    private static IMDbAPIException errorHandler(HttpResponse response){
-        Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-        String errorMessage = (String) results.get('Error');
- 
-        if(string.isNotBlank(errorMessage)){
-            if (errorMessage.equalsIgnoreCase(ERROR_IMDb_INVALID_ID)){
-                throw new IMDbAPIException(400,CUSTOM_MESSAGE_BAD_REQUEST);
-            } 
-            if(errorMessage.equalsIgnoreCase(ERROR_API_KEY_NOT_PROVIDED)){
-                throw new IMDbAPIException(403,CUSTOM_MESSAGE_MISSIG_APIKEY);
-            }
-            if(errorMessage.equalsIgnoreCase(ERROR_API_KEY_INVALID)){
-                throw new IMDbAPIException(403,CUSTOM_MESSAGE_INVALID_APIKEY);
-            }
-        }
-        return null;
     }
 
 }

@@ -2,6 +2,7 @@ public class ReviewException extends Exception {
     
     private Integer errorCode;
     private String message;
+    
     public ReviewException(Integer errorCode, String message){
         this.errorCode = errorCode;
         this.message = message;
