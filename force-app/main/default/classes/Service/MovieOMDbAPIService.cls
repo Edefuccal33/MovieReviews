@@ -6,7 +6,7 @@ public class MovieOMDbAPIService {
     
     private static final String GET_REQUEST_METHOD = 'GET';
     private static final String BY_ID_SEARCH_PARAMETER = 'i=';
-    private static final String BY_TITLE_SEARCH_PARAMETER = 's='; //NO SE USA!!
+    private static final String BY_TITLE_SEARCH_PARAMETER = 's=';
 
     private ErrorHandler errorHandler;
     
@@ -14,28 +14,29 @@ public class MovieOMDbAPIService {
         this.errorHandler = errorHandler; 
     }
 
-    public static Object getMovieById(String movieId){
-        
+    public static Movie getMovieById(String movieId){      
         final String endPoint = API_URL + BY_ID_SEARCH_PARAMETER + movieId + API_KEY;
         HttpResponse response = getResponse(endPoint);
 
         if (!errorHandler.hasErrorIMDbAPIException(response)){
-            Object movie = (Object) JSON.deserializeUntyped(response.getBody());
+            Movie movie = (Movie) JSON.deserialize(response.getBody(), Movie.class);   
             return movie;
         }
         return null;
-
     }
     
-    //NO SE USA!!
-    public static List<Object> getMoviesByTitle(String title){
-
+    public static List<Movie> getMoviesByTitle(String title){
         final String endPoint = API_URL + BY_TITLE_SEARCH_PARAMETER + title + API_KEY; 
         HttpResponse response = getResponse(endPoint);
         
         if (!errorHandler.hasErrorIMDbAPIException(response)){
             Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-            List<Object> movies = (List<Object>) results.get('Search');
+            List<Object> deserializedResults = (List<Object>) results.get('Search');
+            List<Movie> movies = new List<Movie>();
+
+            for(Object obj: deserializedResults){
+                movies.add((Movie) JSON.deserialize(JSON.serialize(obj), Movie.class));
+            }
             return movies;
         }
         return null;

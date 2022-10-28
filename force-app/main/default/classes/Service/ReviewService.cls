@@ -10,7 +10,7 @@ public class ReviewService {
     
     public static ID createReview(String movieId, String authorName, String comment,
         						  Integer qualification){
-		Object movieRelated = MovieOMDbAPIService.getMovieById(movieId);
+		Movie movieRelated = MovieOMDbAPIService.getMovieById(movieId);
 		if(!errorHandler.hasErrorReviewException(authorName, comment, qualification)){
             Review__c review = new Review__c(
                                 MovieId__c = movieId,
@@ -22,15 +22,22 @@ public class ReviewService {
         }                                      
  		return null;                                     
     }
-    
-    public static Map<Object, List<Review__c>> getReviewsByMovieId(String movieId){
-        List<Review__c> reviews = new List<Review__c>();
-        Map<Object, List<Review__c>> movieWithReviews = new Map<Object, List<Review__c>>();    
-		reviews = ReviewRepository.getReviewsByMovieId(movieId);
-        Object movieRelated = MovieOMDbAPIService.getMovieById(movieId);
-        movieWithReviews.put(movieRelated, reviews);
-        
-		return movieWithReviews;          
+
+    public static Movie getMoviesWithReviewsByMovieId(String movieId){
+        Movie movie = MovieOMDbAPIService.getMovieById(movieId);
+        movie.reviews = ReviewRepository.getReviewsByMovieId(movieId);
+        return movie;
+    }
+
+    public static List<Movie> getMoviesWithReviewsByMovieTitle(String movieTitle){
+        List<Review__c> movieReviews = new List<Review__c>();
+        List<Movie> movies = MovieOMDbAPIService.getMoviesByTitle(movieTitle);
+
+        for(Movie movie: movies){
+            movieReviews = ReviewRepository.getReviewsByMovieId(movie.imdbID);
+            movie.reviews = movieReviews; 
+        }
+        return movies;
     }
     
     private static String emptyAuthorNameToAnonymus(String authorName){

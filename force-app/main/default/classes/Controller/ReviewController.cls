@@ -1,25 +1,38 @@
 @RestResource(urlMapping='/Reviews/*')
 global with sharing class ReviewController {
     private ReviewService reviewService;
+    private static final STRING MOVIE_TITLE_KEY_PARAM = 'MovieTitle';
     
     public ReviewController(ReviewService reviewService){
         this.reviewService = reviewService;
     }
     
     @HttpGet
-    global static void getReviewsByMovieId(){
+    global static void getMoviesWithReviews(){
         try{
             RestRequest request = RestContext.request;
-            String movieId = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
-            Map<Object, List<Review__c>> movieWithReviews = ReviewService.getReviewsByMovieId(movieId);
-			RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movieWithReviews));
-            
+
+            /* NOTA: 
+            Convencido de que no es una buena práctica.
+            Realizado sólo para este ejercicio para no crear 2 controllers.
+            */
+
+            //Si la URI viene sin parámetros, busca la película por Id.
+            if(request.params.isEmpty()){
+                String movieId = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
+                Movie movie = ReviewService.getMoviesWithReviewsByMovieId(movieId);
+                RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movie));                
+            }else{ //La busca por el título.
+                String movieTitle = request.params.get(MOVIE_TITLE_KEY_PARAM);
+                List<Movie> movies = ReviewService.getMoviesWithReviewsByMovieTitle(movieTitle);
+                RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movies));  
+            }
+
     	}catch(IMDbAPIException e){
             RestContext.response.statusCode = e.getErrorCode();
-            //e.setSourceError(e.getTypeName());
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
 
-    	}catch(System.CalloutException e){
+    	}catch(Exception e){
             RestContext.response.statusCode = 500;
             RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
         }
@@ -34,13 +47,15 @@ global with sharing class ReviewController {
             
     	}catch(ReviewException e){
             RestContext.response.statusCode = e.getErrorCode();
-            //e.setSourceError(e.getTypeName());
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
             
     	}catch(IMDbAPIException e){
             RestContext.response.statusCode = e.getErrorCode();
-            //e.setSourceError(e.getTypeName());
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
-    	}
+            
+    	}catch(Exception e){
+            RestContext.response.statusCode = 500;
+            RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
+        }
     }
 }
