@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Facturas1</fullName>
+    <active>true</active>
+    <label>Facturas 1</label>
+    <picklistValues>
+        <picklist>TipoDeFactura__c</picklist>
+        <values>
+            <fullName>Cobrado</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Emitida</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facturado</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

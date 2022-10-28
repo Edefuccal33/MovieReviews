@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "name": "Movie Reviews",
+  "namespace": "",
+  "sfdcLoginUrl": "https://leadclic-5f-dev-ed.my.salesforce.com/",
+  "sourceApiVersion": "55.0"
+}
