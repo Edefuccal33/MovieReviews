@@ -6,8 +6,6 @@ global with sharing class ReviewController {
         this.reviewService = reviewService;
     }
     
-    //TO DO: void getReviewsByMovieTitle(){}
-    
     @HttpGet
     global static void getReviewsByMovieId(){
         try{

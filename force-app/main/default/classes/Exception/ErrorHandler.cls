@@ -4,7 +4,7 @@ public class ErrorHandler {
     private static final String ERROR_IMDb_INVALID_ID = 'Incorrect IMDb ID.';//da un código 200
     private static final String ERROR_API_KEY_NOT_PROVIDED = 'No API key provided.';
     private static final String ERROR_API_KEY_INVALID = 'Invalid API key!';
-    //private static final String ERROR_UNKNOWN_IMDb = 'Error getting data'; //da un código 200 (movieId tt2321216)   
+    //private static final String ERROR_UNKNOWN_IMDb = 'Error getting data'; //da un código 200 (Por ej: movieId tt2321216)   
 
     //Custom error messages from Movie Reviews API:
     private static final String CUSTOM_MESSAGE_INVALID_AUTHOR_PARAM_POST_REVIEW = 'Author name string value cannot be numeric.';
