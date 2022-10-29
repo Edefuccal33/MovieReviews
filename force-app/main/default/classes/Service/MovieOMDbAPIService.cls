@@ -41,15 +41,19 @@ public class MovieOMDbAPIService {
         }
         return null;
     }
-    
+
     private static HttpResponse getResponse(String endPoint){
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint(endPoint);
         request.setMethod(GET_REQUEST_METHOD);
-        HttpResponse response = http.send(request);
-        
-        return response;
+        HttpResponse response;
+        try{
+            response = http.send(request);
+            return response;
+        }catch(System.CalloutException e){
+            return null;
+        }        
     }
 
 }
