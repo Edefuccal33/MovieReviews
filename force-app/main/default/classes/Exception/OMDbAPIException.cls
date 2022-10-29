@@ -1,13 +1,14 @@
-public class IMDbAPIException extends Exception {
+public class OMDbAPIException extends Exception {
 	private Integer errorCode;
     private String message;
     private String sourceError;
 
-    public IMDbAPIException(Integer errorCode, String message, String sourceError){
+    public OMDbAPIException(Integer errorCode, String message, String sourceError){
         this.errorCode = errorCode;
         this.message = message;
         this.sourceError = sourceError;
     }
+
     public Integer getErrorCode(){
         return this.errorCode;
     }

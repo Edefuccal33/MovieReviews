@@ -18,7 +18,7 @@ public class MovieOMDbAPIService {
         final String endPoint = API_URL + BY_ID_SEARCH_PARAMETER + movieId + API_KEY;
         HttpResponse response = getResponse(endPoint);
 
-        if (!errorHandler.hasErrorIMDbAPIException(response)){
+        if (!errorHandler.hasErrorOMDbAPIException(response)){
             Movie movie = (Movie) JSON.deserialize(response.getBody(), Movie.class);   
             return movie;
         }
@@ -29,7 +29,7 @@ public class MovieOMDbAPIService {
         final String endPoint = API_URL + BY_TITLE_SEARCH_PARAMETER + title + API_KEY; 
         HttpResponse response = getResponse(endPoint);
         
-        if (!errorHandler.hasErrorIMDbAPIException(response)){
+        if (!errorHandler.hasErrorOMDbAPIException(response)){
             Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
             List<Object> deserializedResults = (List<Object>) results.get('Search');
             List<Movie> movies = new List<Movie>();
