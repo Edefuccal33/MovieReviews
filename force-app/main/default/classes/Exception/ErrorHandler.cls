@@ -5,7 +5,6 @@ public class ErrorHandler {
     private static final String ERROR_API_KEY_NOT_PROVIDED = 'No API key provided.';
     private static final String ERROR_API_KEY_INVALID = 'Invalid API key!';
     private static final String ERROR_MOVIE_TITLE_NOT_FOUND = 'Movie not found!';
-    private static final String ERROR_CONVERSION_STRING_ID = 'Conversion from string "999?111" to type "Double" is not valid.';
     //Custom error message for Time Out OMDb API:
     private static final String ERROR_TIME_OUT_CALL_OUT = 'Time out. Seems like it is taking too long for OMDb API send a response.';
 
@@ -29,7 +28,7 @@ public class ErrorHandler {
         try{
             results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
         }catch(System.JSONException e){
-            throw new APICustomException(500, e.getMessage(), OMDb_API_SOURCE_ERROR);
+            throw new APICustomException(400, e.getMessage(), OMDb_API_SOURCE_ERROR);
         }
       
         String errorMessage = (String) results.get('Error');
@@ -41,7 +40,7 @@ public class ErrorHandler {
                 throw new APICustomException(400,errorMessage, OMDb_API_SOURCE_ERROR);
             }else if(errorMessage.equalsIgnoreCase(ERROR_API_KEY_NOT_PROVIDED) || 
                         errorMessage.equalsIgnoreCase(ERROR_API_KEY_INVALID)){
-                throw new APICustomException(403,errorMessage, OMDb_API_SOURCE_ERROR);
+                throw new APICustomException(401,errorMessage, OMDb_API_SOURCE_ERROR);
             }else if(errorMessage.equalsIgnoreCase(ERROR_MOVIE_TITLE_NOT_FOUND)){
                 throw new APICustomException(404,errorMessage, OMDb_API_SOURCE_ERROR);
             }else{
