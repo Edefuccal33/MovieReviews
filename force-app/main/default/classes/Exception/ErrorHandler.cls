@@ -11,6 +11,7 @@ public class ErrorHandler {
 
     private static final String OMDb_API_SOURCE_ERROR = 'OM Data Base API';
     private static final String MOVIE_REVIEWS_API_SOURCE_ERROR = 'Salesforce Movie Reviews API';
+    private static final String UNKNOWN_ERROR_SOURCE = 'Server unkown error. Please contact the administrator.';
     //Custom error messages from Movie Reviews API:
     private static final String CUSTOM_MESSAGE_INVALID_AUTHOR_PARAM_POST_REVIEW = 'Author name string value cannot be numeric.';
     private static final String CUSTOM_MESSAGE_INVALID_COMMENT_PARAM_POST_REVIEW = 'Comment string value is mandatory. It cannot be null, empty or numeric.';
@@ -18,45 +19,51 @@ public class ErrorHandler {
     
     public ErrorHandler(){}
 
-    public static Boolean hasErrorOMDbAPIException(HttpResponse response){
+    public static Boolean hasErrorFromOMDbAPI(HttpResponse response){
         
         if (response == null){
-            throw new OMDbAPIException(503, ERROR_TIME_OUT_CALL_OUT, OMDb_API_SOURCE_ERROR);
+            throw new APICustomException(503, ERROR_TIME_OUT_CALL_OUT, OMDb_API_SOURCE_ERROR);
         }
 
-        Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+        Map<String, Object> results;
+        try{
+            results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+        }catch(System.JSONException e){
+            throw new APICustomException(500, e.getMessage(), OMDb_API_SOURCE_ERROR);
+        }
+      
         String errorMessage = (String) results.get('Error');
         String responseFalseText = (String) results.get('Response');
 
         if (responseFalseText.equalsIgnoreCase('False')){        
             //In order to return correct error codes.  
             if(errorMessage.equalsIgnoreCase(ERROR_OMDb_INVALID_ID)){
-                throw new OMDbAPIException(400,errorMessage, OMDb_API_SOURCE_ERROR);
+                throw new APICustomException(400,errorMessage, OMDb_API_SOURCE_ERROR);
             }else if(errorMessage.equalsIgnoreCase(ERROR_API_KEY_NOT_PROVIDED) || 
                         errorMessage.equalsIgnoreCase(ERROR_API_KEY_INVALID)){
-                throw new OMDbAPIException(403,errorMessage, OMDb_API_SOURCE_ERROR);
+                throw new APICustomException(403,errorMessage, OMDb_API_SOURCE_ERROR);
             }else if(errorMessage.equalsIgnoreCase(ERROR_MOVIE_TITLE_NOT_FOUND)){
-                throw new OMDbAPIException(404,errorMessage, OMDb_API_SOURCE_ERROR);
+                throw new APICustomException(404,errorMessage, OMDb_API_SOURCE_ERROR);
             }else{
-                throw new OMDbAPIException(500, errorMessage, OMDb_API_SOURCE_ERROR);
+                throw new APICustomException(500, errorMessage, OMDb_API_SOURCE_ERROR);
             }
         }
         return FALSE;
     }
 
-    public static Boolean hasErrorReviewException(String authorName, String comment, Integer qualification){
+    public static Boolean hasErrorFromThisReviewsAPI(String authorName, String comment, Integer qualification){
         if(authorName.isNumeric()){
-            throw new ReviewException(400, 
+            throw new APICustomException(400, 
                                       CUSTOM_MESSAGE_INVALID_AUTHOR_PARAM_POST_REVIEW,
                                       MOVIE_REVIEWS_API_SOURCE_ERROR);
         }
         if(!IsStringValid(comment)){
-            throw new ReviewException(400, 
+            throw new APICustomException(400, 
                                       CUSTOM_MESSAGE_INVALID_COMMENT_PARAM_POST_REVIEW,
                                       MOVIE_REVIEWS_API_SOURCE_ERROR);
         }
         if(!isQualificationValid(qualification)){
-            throw new ReviewException(400, 
+            throw new APICustomException(400, 
                                       CUSTOM_MESSAGE_INVALID_QUALIFICATION_PARAM_POST_REVIEW,
                                       MOVIE_REVIEWS_API_SOURCE_ERROR);
         }
@@ -83,6 +90,10 @@ public class ErrorHandler {
             return FALSE;
         }
         return TRUE;
+    }
+
+    public static APICustomException createServerUnknownError(String errorMessage){
+        return new APICustomException(500, errorMessage, UNKNOWN_ERROR_SOURCE); 
     }
 
 }

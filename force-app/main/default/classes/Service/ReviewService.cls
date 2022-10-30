@@ -11,7 +11,7 @@ public class ReviewService {
     public static ID createReview(String movieId, String authorName, String comment,
         						  Integer qualification){
 		Movie movieRelated = MovieOMDbAPIService.getMovieById(movieId);
-		if(!errorHandler.hasErrorReviewException(authorName, comment, qualification)){
+		if(!errorHandler.hasErrorFromThisReviewsAPI(authorName, comment, qualification)){
             Review__c review = new Review__c(
                                 MovieId__c = movieId,
                                 Author__c=emptyAuthorNameToAnonymus(authorName),

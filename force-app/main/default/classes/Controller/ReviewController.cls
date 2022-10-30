@@ -1,7 +1,6 @@
 @RestResource(urlMapping='/Reviews/*')
 global with sharing class ReviewController {
     private ReviewService reviewService;
-    private static final STRING MOVIE_TITLE_KEY_PARAM = 'MovieTitle';
     
     public ReviewController(ReviewService reviewService){
         this.reviewService = reviewService;
@@ -14,7 +13,6 @@ global with sharing class ReviewController {
             Convencido de que no es una buena práctica.
             Realizado sólo para este ejercicio para no crear 2 controllers.
             */
-
             RestRequest request = RestContext.request;
             //Si la URI viene sin parámetros, busca la película por Id.
             if(request.params.isEmpty()){
@@ -22,18 +20,18 @@ global with sharing class ReviewController {
                 Movie movie = ReviewService.getMoviesWithReviewsByMovieId(movieId);
                 RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movie));                
             }else{ //La busca por el título.
-                String movieTitle = request.params.get(MOVIE_TITLE_KEY_PARAM);
+                List<String> paramKeys = new List<String>(request.params.keySet());
+                String movieTitle = request.params.get(paramKeys[0]);
                 List<Movie> movies = ReviewService.getMoviesWithReviewsByMovieTitle(movieTitle);
                 RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movies));  
             }
-    	}catch(OMDbAPIException e){
+    	}catch(APICustomException e){
             RestContext.response.statusCode = e.getErrorCode();
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
-
-    	}catch(Exception e){
-            OMDbAPIException unknownOMDbException = new OMDbAPIException(400, e.getMessage(), 'OM Data Base API');
-            RestContext.response.statusCode = unknownOMDbException.getErrorCode();
-            RestContext.response.responseBody = Blob.valueOf(JSON.serialize(unknownOMDbException + '. Exception type Name: ' + e.getTypeName()));
+        }catch(Exception e){
+            APICustomException unknownException = ErrorHandler.createServerUnknownError(e.getMessage());
+            RestContext.response.statusCode = unknownException.getErrorCode();
+            RestContext.response.responseBody = Blob.valueOf(JSON.serialize(unknownException));
         }
     }
     
@@ -44,18 +42,14 @@ global with sharing class ReviewController {
             RestContext.response.statusCode = 201;
             RestContext.response.responseBody = (Blob.valueOf(JSON.serialize(recordId)));
             
-    	}catch(ReviewException e){
-            RestContext.response.statusCode = e.getErrorCode();
-           	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
-            
-    	}catch(OMDbAPIException e){
+    	}catch(APICustomException e){
             RestContext.response.statusCode = e.getErrorCode();
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
             
     	}catch(Exception e){
-            OMDbAPIException unknownOMDbException = new OMDbAPIException(400, e.getMessage(), 'OM Data Base API');
-            RestContext.response.statusCode = unknownOMDbException.getErrorCode();
-            RestContext.response.responseBody = Blob.valueOf(JSON.serialize(unknownOMDbException + '. Exception type Name: ' + e.getTypeName()));
+            APICustomException unknownException = ErrorHandler.createServerUnknownError(e.getMessage());
+            RestContext.response.statusCode = unknownException.getErrorCode();
+            RestContext.response.responseBody = Blob.valueOf(JSON.serialize(unknownException));
         }
     }
 }
