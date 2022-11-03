@@ -9,17 +9,12 @@ global with sharing class ReviewController {
     @HttpGet
     global static void getMoviesWithReviews(){
         try{
-            /* NOTA: 
-            Convencido de que no es una buena práctica.
-            Realizado sólo para este ejercicio para no crear 2 controllers.
-            */
             RestRequest request = RestContext.request;
-            //Si la URI viene sin parámetros, busca la película por Id.
             if(request.params.isEmpty()){
                 String movieId = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
                 Movie movie = ReviewService.getMoviesWithReviewsByMovieId(movieId);
                 RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movie));                
-            }else{ //La busca por el título.
+            }else{
                 List<String> paramKeys = new List<String>(request.params.keySet());
                 String movieTitle = request.params.get(paramKeys[0]);
                 List<Movie> movies = ReviewService.getMoviesWithReviewsByMovieTitle(movieTitle);

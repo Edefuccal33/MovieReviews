@@ -12,13 +12,7 @@ public class ReviewService {
         						  Integer qualification){
 		Movie movieRelated = MovieOMDbAPIService.getMovieById(movieId);
 		if(!errorHandler.hasErrorFromThisReviewsAPI(authorName, comment, qualification)){
-            Review__c review = new Review__c(
-                                MovieId__c = movieId,
-                                Author__c=emptyAuthorNameToAnonymus(authorName),
-                                Comment__c=comment,
-                                Qualification__c=qualification);
-            insert review;        
-            return review.Id;            
+            return ReviewRepository.insertReview(movieId, emptyAuthorNameToAnonymus(authorName), comment, qualification);           
         }                                      
  		return null;                                     
     }
@@ -30,12 +24,17 @@ public class ReviewService {
     }
 
     public static List<Movie> getMoviesWithReviewsByMovieTitle(String movieTitle){
-        List<Review__c> movieReviews = new List<Review__c>();
         List<Movie> movies = MovieOMDbAPIService.getMoviesByTitle(movieTitle);
-
+        List<Review__c> allReviews = ReviewRepository.getAllReviews();
+        List<Review__c> relatedReviews = new List<Review__c>();
+        
         for(Movie movie: movies){
-            movieReviews = ReviewRepository.getReviewsByMovieId(movie.imdbID);
-            movie.reviews = movieReviews; 
+            for(Review__c r: allReviews){
+                if(movie.imdbID == r.MovieId__c){
+                    relatedReviews.add(r);
+                }
+            }
+            movie.reviews = relatedReviews; 
         }
         return movies;
     }

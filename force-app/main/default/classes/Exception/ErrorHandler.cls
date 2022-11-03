@@ -15,7 +15,7 @@ public class ErrorHandler {
     private static final String CUSTOM_MESSAGE_INVALID_AUTHOR_PARAM_POST_REVIEW = 'Author name string value cannot be numeric.';
     private static final String CUSTOM_MESSAGE_INVALID_COMMENT_PARAM_POST_REVIEW = 'Comment string value is mandatory. It cannot be null, empty or numeric.';
     private static final String CUSTOM_MESSAGE_INVALID_QUALIFICATION_PARAM_POST_REVIEW = 'Qualification number value is mandatory. It cannot be null or empty, must be a number between 0 and 10.';
-    
+
     public ErrorHandler(){}
 
     public static Boolean hasErrorFromOMDbAPI(HttpResponse response){

@@ -19,8 +19,7 @@ public class MovieOMDbAPIService {
         HttpResponse response = getResponse(endPoint);
 
         if (!errorHandler.hasErrorFromOMDbAPI(response)){
-            Movie movie = (Movie) JSON.deserialize(response.getBody(), Movie.class);   
-            return movie;
+            return (Movie) JSON.deserialize(response.getBody(), Movie.class); 
         }
         return null;
     }
