@@ -7,7 +7,7 @@ global with sharing class ReviewController {
     }
     
     @HttpGet
-    global static void getMoviesWithReviews(){
+    global static void getMovies(){
         try{
             RestRequest request = RestContext.request;
             if(request.params.isEmpty()){
@@ -16,8 +16,9 @@ global with sharing class ReviewController {
                 RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movie));                
             }else{
                 List<String> paramKeys = new List<String>(request.params.keySet());
-                String movieTitle = request.params.get(paramKeys[0]);
-                List<Movie> movies = ReviewService.getMoviesWithReviewsByMovieTitle(movieTitle);
+                String movieTitle = request.params.get(paramKeys[1]);
+                Boolean loadReviews = Boolean.valueOf(request.params.geT(paramKeys[0]));
+                List<Movie> movies = ReviewService.getMoviesByMovieTitle(movieTitle, loadReviews);
                 RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movies));  
             }
     	}catch(APICustomException e){

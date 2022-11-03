@@ -23,11 +23,14 @@ public class ReviewService {
         return movie;
     }
 
-    public static List<Movie> getMoviesWithReviewsByMovieTitle(String movieTitle){
+    public static List<Movie> getMoviesByMovieTitle(String movieTitle, Boolean loadReviews){
+        
+        if (!loadReviews) return MovieOMDbAPIService.getMoviesByTitle(movieTitle);
+
         List<Movie> movies = MovieOMDbAPIService.getMoviesByTitle(movieTitle);
         List<Review__c> allReviews = ReviewRepository.getAllReviews();
         List<Review__c> relatedReviews = new List<Review__c>();
-        
+
         for(Movie movie: movies){
             for(Review__c r: allReviews){
                 if(movie.imdbID == r.MovieId__c){
