@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>CountUpdated</masterLabel>
+    <isExposed>true</isExposed>
+    <description>Message Channel to pass imODb Id from the clicked movie in MovieList LWC to Reviews LWC</description>
+     <lightningMessageFields>
+        <fieldName>movieIdToSend</fieldName>
+        <description>Clicked movie Id to send</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>movieTitle</fieldName>
+        <description>Clicked movie title to send</description>
+    </lightningMessageFields>
+
+</LightningMessageChannel>

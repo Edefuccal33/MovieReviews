@@ -7,6 +7,9 @@ public class ErrorHandler {
     private static final String ERROR_MOVIE_TITLE_NOT_FOUND = 'Movie not found!';
     //Custom error message for Time Out OMDb API:
     private static final String ERROR_TIME_OUT_CALL_OUT = 'Time out. Seems like it is taking too long for OMDb API send a response.';
+    private static final String NULL_MOVIE_TITLE = 'Please enter a movie title to retrieve movies';
+    private static final String NULL_MOVIE_ID = 'After searching a movie, make a click on any of them to see its reviews.';
+    private static final String UNKNOWN_ERROR_MESSAGE = 'Cannot find matches, please try with another search term.';
 
     private static final String OMDb_API_SOURCE_ERROR = 'OM Data Base API';
     private static final String MOVIE_REVIEWS_API_SOURCE_ERROR = 'Salesforce Movie Reviews API';
@@ -22,6 +25,9 @@ public class ErrorHandler {
         
         if (response == null){
             throw new APICustomException(503, ERROR_TIME_OUT_CALL_OUT, OMDb_API_SOURCE_ERROR);
+        }
+        if (response.getStatusCode()==404){
+            throw new APICustomException(500, UNKNOWN_ERROR_MESSAGE, OMDb_API_SOURCE_ERROR);
         }
 
         Map<String, Object> results;
@@ -91,8 +97,16 @@ public class ErrorHandler {
         return TRUE;
     }
 
-    public static APICustomException createServerUnknownError(String errorMessage){
-        return new APICustomException(500, errorMessage, UNKNOWN_ERROR_SOURCE); 
+    public static APICustomException createServerUnknownError(){
+        return new APICustomException(500, UNKNOWN_ERROR_SOURCE, UNKNOWN_ERROR_SOURCE); 
+    }
+
+    public static APICustomException createEmptyMovieTitleException(){
+        return new APICustomException(400, NULL_MOVIE_TITLE, OMDb_API_SOURCE_ERROR); 
+    }
+
+    public static APICustomException createEmptyMovieIdException(){
+        return new APICustomException(400, NULL_MOVIE_ID, OMDb_API_SOURCE_ERROR); 
     }
 
 }

@@ -1,5 +1,5 @@
 public class APICustomException extends Exception {
-    
+
     private Integer errorCode;
     private String message;
     private String sourceError;

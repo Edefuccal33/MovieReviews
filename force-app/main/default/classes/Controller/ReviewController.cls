@@ -6,6 +6,7 @@ global with sharing class ReviewController {
         this.reviewService = reviewService;
     }
     
+    @AuraEnabled(cacheable=true)
     @HttpGet
     global static void getMovies(){
         try{
@@ -16,18 +17,19 @@ global with sharing class ReviewController {
                 RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movie));                
             }else{
                 List<String> paramKeys = new List<String>(request.params.keySet());
-                String movieTitle = request.params.get(paramKeys[1]);
-                Boolean loadReviews = Boolean.valueOf(request.params.geT(paramKeys[0]));
-                List<Movie> movies = ReviewService.getMoviesByMovieTitle(movieTitle, loadReviews);
+                String movieTitle = request.params.get(paramKeys[0]);
+                //String movieTitle = request.params.get(paramKeys[1]);
+                //Boolean loadReviews = Boolean.valueOf(request.params.geT(paramKeys[0]));
+                List<Movie> movies = ReviewService.getMoviesByMovieTitle(movieTitle);
                 RestContext.response.responseBody = Blob.valueOf(JSON.serialize(movies));  
             }
     	}catch(APICustomException e){
             RestContext.response.statusCode = e.getErrorCode();
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
         }catch(Exception e){
-            APICustomException unknownException = ErrorHandler.createServerUnknownError(e.getMessage());
-            RestContext.response.statusCode = unknownException.getErrorCode();
-            RestContext.response.responseBody = Blob.valueOf(JSON.serialize(unknownException));
+            // APICustomException unknownException = ErrorHandler.createServerUnknownError(e.getMessage());
+            // RestContext.response.statusCode = unknownException.getErrorCode();
+            // RestContext.response.responseBody = Blob.valueOf(JSON.serialize(unknownException));
         }
     }
     
@@ -43,9 +45,9 @@ global with sharing class ReviewController {
            	RestContext.response.responseBody = Blob.valueOf(JSON.serialize(e));
             
     	}catch(Exception e){
-            APICustomException unknownException = ErrorHandler.createServerUnknownError(e.getMessage());
-            RestContext.response.statusCode = unknownException.getErrorCode();
-            RestContext.response.responseBody = Blob.valueOf(JSON.serialize(unknownException));
+            // APICustomException unknownException = ErrorHandler.createServerUnknownError(e.getMessage());
+            // RestContext.response.statusCode = unknownException.getErrorCode();
+            // RestContext.response.responseBody = Blob.valueOf(JSON.serialize(unknownException));
         }
     }
 }

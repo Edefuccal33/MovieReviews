@@ -1,6 +1,8 @@
 public class Movie {
 
+	@AuraEnabled
     public String Title;	//Gold
+	@AuraEnabled
 	public String Year;	//2016
 	public String Rated;	//R
 	public String Released;	//27 Jan 2017
@@ -13,12 +15,14 @@ public class Movie {
 	public String Language;	//English, Indonesian
 	public String Country;	//United States
 	public String Awards;	//1 win & 5 nominations
+	@AuraEnabled
 	public String Poster;	//https://m.media-amazon.com/images/M/MV5BNzI1NjI5OTUyM15BMl5BanBnXkFtZTgwOTM4NzY2MDI@._V1_SX300.jpg
 	//public cls_Ratings[] Ratings;
     //public List<Map<String,String>> Ratings;
 	public String Metascore;	//49
 	public String imdbRating;	//6.7
 	public String imdbVotes;	//64,415
+	@AuraEnabled
 	public String imdbID;	//tt1800302
 	public String Type;	//movie
 	public String DVD;	//02 May 2017
@@ -26,7 +30,8 @@ public class Movie {
 	public String Production;	//N/A
 	public String Website;	//N/A
 	public String Response;	//True
-    public List<Review__c> Reviews;
+    @AuraEnabled
+	public List<Review__c> Reviews;
 
     public Movie() {}
 

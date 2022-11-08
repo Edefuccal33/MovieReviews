@@ -1,0 +1,16 @@
+<template>
+     <!-- Start review tile -->
+	<lightning-card title={review.Name} class="movie-tile">
+		<div class="slds-var-p-horizontal_small movie-tile-body">
+			<div class="slds-media">
+				<div class="slds-media__body">
+					<p class="slds-var-m-bottom_xx-small">Author: {review.Author__c}</p>
+					<p class="slds-var-m-bottom_xx-small">Comment: {review.Comment__c}</p>
+					<p class="slds-var-m-bottom_xx-small">Qualification: {review.Qualification__c}</p>
+					<p class="slds-var-m-bottom_xx-small">Review date: {review.CreatedDate__c}</p>
+				</div>
+			</div>
+		</div>
+	</lightning-card>
+	<!-- End review tile -->   
+</template>

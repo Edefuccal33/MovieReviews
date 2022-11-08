@@ -23,23 +23,30 @@ public class ReviewService {
         return movie;
     }
 
-    public static List<Movie> getMoviesByMovieTitle(String movieTitle, Boolean loadReviews){
+    public static List<Review__c> getReviewsByMovieId(String movieId){
+        Movie movie = MovieOMDbAPIService.getMovieById(movieId);
+        return ReviewRepository.getReviewsByMovieId(movieId);
+    }
+
+    public static List<Movie> getMoviesByMovieTitle(String movieTitle){
         
-        if (!loadReviews) return MovieOMDbAPIService.getMoviesByTitle(movieTitle);
+        return MovieOMDbAPIService.getMoviesByTitle(movieTitle);
+        
+        // if (!loadReviews) return MovieOMDbAPIService.getMoviesByTitle(movieTitle);
 
-        List<Movie> movies = MovieOMDbAPIService.getMoviesByTitle(movieTitle);
-        List<Review__c> allReviews = ReviewRepository.getAllReviews();
-        List<Review__c> relatedReviews = new List<Review__c>();
+        // List<Movie> movies = MovieOMDbAPIService.getMoviesByTitle(movieTitle);
+        // List<Review__c> allReviews = ReviewRepository.getAllReviews();
+        // List<Review__c> relatedReviews = new List<Review__c>();
 
-        for(Movie movie: movies){
-            for(Review__c r: allReviews){
-                if(movie.imdbID == r.MovieId__c){
-                    relatedReviews.add(r);
-                }
-            }
-            movie.reviews = relatedReviews; 
-        }
-        return movies;
+        // for(Movie movie: movies){
+        //     for(Review__c r: allReviews){
+        //         if(movie.imdbID == r.MovieId__c){
+        //             relatedReviews.add(r);
+        //         }
+        //     }
+        //     movie.reviews = relatedReviews; 
+        // }
+        // return movies;
     }
     
     private static String emptyAuthorNameToAnonymus(String authorName){

@@ -15,6 +15,7 @@ public class MovieOMDbAPIService {
     }
 
     public static Movie getMovieById(String movieId){      
+        validateMovieId(movieId);
         final String endPoint = API_URL + BY_ID_SEARCH_PARAMETER + movieId + API_KEY;
         HttpResponse response = getResponse(endPoint);
 
@@ -25,6 +26,7 @@ public class MovieOMDbAPIService {
     }
     
     public static List<Movie> getMoviesByTitle(String title){
+        validateMovieTitle(title);
         final String endPoint = API_URL + BY_TITLE_SEARCH_PARAMETER + title + API_KEY; 
         HttpResponse response = getResponse(endPoint);
         
@@ -39,6 +41,18 @@ public class MovieOMDbAPIService {
             return movies;
         }
         return null;
+    }
+
+    private static void validateMovieTitle(String movieTitle){
+        if(String.isBlank(movieTitle) || String.isEmpty(movieTitle)){
+            throw errorHandler.createEmptyMovieTitleException();
+        }
+    }
+
+    private static void validateMovieId(String movieId){
+        if(String.isBlank(movieId) || String.isEmpty(movieId)){
+            throw errorHandler.createEmptyMovieIdException();
+        }
     }
 
     private static HttpResponse getResponse(String endPoint){

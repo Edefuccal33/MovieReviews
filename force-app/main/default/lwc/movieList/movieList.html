@@ -1,0 +1,32 @@
+<template>
+    <lightning-card title="Movies" icon-name="custom:custom11">
+		<div class="slds-card__body slds-card__body_inner">
+			<lightning-input type="search"
+				onchange={handleSearchTermChange}
+				variant="label-hidden"
+				class="slds-var-m-bottom_small"
+				label="Search"
+				placeholder="Search for movies"
+				value={searchTerm}>
+			</lightning-input>
+				<!-- Start movie list -->
+				<template if:true={movies}>
+					<lightning-layout multiple-rows="true" pull-to-boundary="small">
+						<template for:each={movies} for:item="movie">
+							<lightning-layout-item key={movie.imdbID} size="3" class="slds-var-p-around_x-small">
+								<c-movie-tile movie={movie}></c-movie-tile>
+							</lightning-layout-item>
+						</template>
+					</lightning-layout>
+				</template>
+				<!-- End movie list -->
+
+			<!-- Data failed to load -->
+			<template if:true={error}>
+				<div class="slds-text-color_error">
+					{error}
+				</div>
+			</template>
+		</div>
+	</lightning-card>    
+</template>
