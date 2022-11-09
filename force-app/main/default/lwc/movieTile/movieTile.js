@@ -17,10 +17,10 @@ export default class MovieTile extends LightningElement {
         });
         this.dispatchEvent(selectEvent);
         console.log(this.movie.imdbID);
-        const idToSend = {
+        const message = {
             movieIdToSend: this.movie.imdbID,
             movieTitle: this.movie.Title
         };
-        publish(this.context, SEND_MOVIE_ID, idToSend);
+        publish(this.context, SEND_MOVIE_ID, message);
     }
 }

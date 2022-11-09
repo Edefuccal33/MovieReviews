@@ -1,10 +1,25 @@
 import { NavigationMixin } from 'lightning/navigation';
 import { LightningElement, wire } from 'lwc';
+import { createMessageContext, releaseMessageContext, publish } from 'lightning/messageService';
+import SEND_MOVIE_ID from "@salesforce/messageChannel/sendMovieId__c";
 /** BearController.searchBears(searchTerm) Apex method */
 import searchMovies from '@salesforce/apex/ReviewControllerNoRest.getMovies'; //@salesforce/apex/BearController.searchBears';
 export default class MovieList extends NavigationMixin(LightningElement) {
 	movieTitle = '';
 	movies;
+	context = createMessageContext();
+
+	disconnectedCallback(){
+        releaseMessageContext(this.context);
+    }
+
+	handleOnClick() {
+        const idToSend = {
+            movieIdToSend: '',
+            movieTitle: ''
+        };
+        publish(this.context, SEND_MOVIE_ID, idToSend);
+    }
 
 	@wire(searchMovies, {movieTitle: '$movieTitle'}) 
 	loadMovies({ error, data }) {
@@ -25,6 +40,11 @@ export default class MovieList extends NavigationMixin(LightningElement) {
 		this.delayTimeout = setTimeout(() => {
 			this.movieTitle = searchTerm;
 		}, 300);
+		const message = {
+            movieIdToSend:'',
+            movieTitle:''
+        };
+        publish(this.context, SEND_MOVIE_ID, message);
 	}
 
 	get hasResults(){

@@ -19,6 +19,8 @@ public with sharing class ReviewControllerNoRest {
     @AuraEnabled(cacheable=true)
     public static Movie getMovieById(String movieId){
         try{
+            Movie movie = ReviewService.getMoviesWithReviewsByMovieId(movieId);
+            System.debug(movie);
             return ReviewService.getMoviesWithReviewsByMovieId(movieId);
     	}catch(APICustomException e){
             throw new AuraHandledException(e.getMessage());

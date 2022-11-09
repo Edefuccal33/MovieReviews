@@ -8,7 +8,7 @@ public class ErrorHandler {
     //Custom error message for Time Out OMDb API:
     private static final String ERROR_TIME_OUT_CALL_OUT = 'Time out. Seems like it is taking too long for OMDb API send a response.';
     private static final String NULL_MOVIE_TITLE = 'Please enter a movie title to retrieve movies';
-    private static final String NULL_MOVIE_ID = 'After searching a movie, make a click on any of them to see its reviews.';
+    private static final String NULL_MOVIE_ID = 'Click on any movie to see its reviews.';
     private static final String UNKNOWN_ERROR_MESSAGE = 'Cannot find matches, please try with another search term.';
 
     private static final String OMDb_API_SOURCE_ERROR = 'OM Data Base API';

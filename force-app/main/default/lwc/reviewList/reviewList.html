@@ -1,36 +1,36 @@
 <template>
-    <lightning-card title="Reviews" icon-name="custom:custom9">
-		<!--<div class="slds-card__body slds-card__body_inner">-->
-		<div class="slds-p-around_medium lgc-bg">
-			<ul class="slds-has-dividers_bottom-space">
-			<template if:true={reviews}>
-				<div class="slds-text-align_left">Last movie selected
-					<lightning-badge label={movieTitle} class="slds-badge_inverse"></lightning-badge>
-				</div>
-				<li class="slds-item">
-					<template for:each={reviews} for:item="review">
-						<lightning-tile key={review.Id} label={review.Author__c} href="" type="media">
-							<lightning-avatar slot="media" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" fallback-icon-name="standard:person_account" alternative-text="Bruce Wayne"></lightning-avatar>
-							<ul class="slds-list_horizontal slds-has-dividers_right">
-								<li class="slds-item">{review.Comment__c}</li>
-								<li class="slds-item">
-									<lightning-badge label={review.Qualification__c} icon-name="custom:custom11"></lightning-badge>
-								</li>
-								<ul class="slds-has-dividers_bottom-space"></ul>
-							</ul>
-							<ul class="slds-has-dividers_bottom-space"></ul>
-						</lightning-tile>
+	<lightning-card title="Reviews" icon-name="custom:custom9">
+		<div class="slds-p-around_x-small">
+				<template if:true={hasResults}>
+					<ul class="slds-has-dividers_bottom-space">
+						<li class="slds-item">
+							<lightning-badge label={countReviews} class="slds-badge_inverse"></lightning-badge> <b>Reviews for {movieTitle}!</b>
+						</li>
+					</ul>
+					<ul class="slds-has-dividers_bottom-space">
+					<li class="slds-item">
+						<template for:each={reviews} for:item="review">
+							<lightning-tile key={review.Id} label={review.Author__c} href="" type="media">
+								<lightning-avatar slot="media" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" fallback-icon-name="standard:person_account" alternative-text="Bruce Wayne"></lightning-avatar>
+								<ul class="slds-list_horizontal slds-has-dividers_right">
+									<li class="slds-item">{review.Comment__c}</li>
+									<li class="slds-item">
+										<lightning-badge label={review.Qualification__c} icon-name="custom:custom11"></lightning-badge>
+									</li>
+								</ul>
+							</lightning-tile>
+						</template>
+					</li>
+					</ul>
+				</template>
+				<template if:false={hasResults}>
+					<template if:false={movieNotSelected}>
+						<div class="slds-text-heading_small">No reviews for <b>{movieTitle}</b>. Create the first one!</div>
 					</template>
-				</li>
-			</template>
-			<template if:true={error}>
-				<div class="slds-text-color_error">
-					{error}
-				</div>
-			</template>
-			</ul>
+					<template if:true={movieNotSelected}>
+						<div class="slds-text-heading_small">Reviews (if there are) will be displayed here after selecting a movie above!</div>
+					</template>
+				</template>
 		</div>
-		<!--</div>-->
-        <lightning-button label="Create review" title="Non-primary action" onclick={createReview} class="slds-m-left_x-small"></lightning-button>
 	</lightning-card>
 </template>
