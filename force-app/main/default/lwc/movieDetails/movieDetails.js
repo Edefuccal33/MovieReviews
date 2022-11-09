@@ -36,7 +36,7 @@ export default class MovieDetails extends LightningElement {
     @wire(getMovie, {movieId: '$receivedMovieId'}) 
 	loadMovies({ error, data }) {
 		if (error) {
-			this.movie = [];
+			this.movie = undefined;
 			this.error = error.body.message;
 			console.log(error);
 		} else if (data) {
@@ -44,5 +44,13 @@ export default class MovieDetails extends LightningElement {
 			this.error = [];
             console.log(this.movie);
 		}
+	}
+
+	get hasResults(){
+		return (this.movie !== undefined);
+	}
+
+	get movieNotSelected(){
+		return (this.movieTitle === '');
 	}
 }

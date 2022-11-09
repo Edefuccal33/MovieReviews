@@ -20,3 +20,7 @@
     overflow-wrap: break-word;
     text-align: justify;
 }
+.slds-text-heading_small{
+    margin-left: 4px;
+    padding-left: 4px;
+}

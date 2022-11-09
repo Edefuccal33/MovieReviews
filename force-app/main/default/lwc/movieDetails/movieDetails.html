@@ -1,142 +1,141 @@
 <template>
     <lightning-card title="Movie details" icon-name="custom:custom9">
-        <template if:true={movie}>
-            <div class="slds-p-around_medium">
-                    <!-- Simple -->
-                            <dl class="slds-dl_inline">
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Title"><b>Title:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Title}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Year"><b>Year:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Year}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Rated"><b>Rated:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Rated}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Released"><b>Released:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Released}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Runtime"><b>Runtime:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Runtime}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Genre"><b>Genre:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Genre}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Director"><b>Director:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Director}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Writer"><b>Writer:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Writer}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Actors"><b>Actors:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Actors}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Plot"><b>Plot:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Plot}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Language"><b>Language:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Language}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Country"><b>Country:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Country}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Awards"><b>Awards:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Awards}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Metascore"><b>Metascore:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Metascore}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="imdbRating"><b>imdbRating:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.imdbRating}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="imdbVotes"><b>imdbVotes:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.imdbVotes}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Type"><b>Type:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Type}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="DVD"><b>DVD:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.DVD}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="BoxOffice"><b>BoxOffice:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.BoxOffice}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Production"><b>Production:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Production}</div>
-                                </dd>
-                                <dt class="slds-dl_inline__label">
-                                    <p class="slds-truncate" title="Website"><b>Website:</b></p>
-                                </dt>
-                                <dd class="slds-dl_inline__detail">
-                                    <div class="wrap">{movie.Website}</div>
-                                </dd>
-                            </dl>
-            </div>           
-            <template if:true={error}>
-                <div class="slds-text-color_error">
-                    {error} 
-                </div>
+        <div class="slds-p-around_x-small">
+            <template if:true={hasResults}>        
+                <dl class="slds-dl_inline">
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Title"><b>Title:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Title}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Year"><b>Year:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Year}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Rated"><b>Rated:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Rated}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Released"><b>Released:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Released}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Runtime"><b>Runtime:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Runtime}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Genre"><b>Genre:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Genre}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Director"><b>Director:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Director}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Writer"><b>Writer:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Writer}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Actors"><b>Actors:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Actors}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Plot"><b>Plot:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Plot}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Language"><b>Language:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Language}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Country"><b>Country:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Country}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Awards"><b>Awards:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Awards}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Metascore"><b>Metascore:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Metascore}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="imdbRating"><b>imdbRating:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.imdbRating}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="imdbVotes"><b>imdbVotes:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.imdbVotes}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Type"><b>Type:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Type}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="DVD"><b>DVD:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.DVD}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="BoxOffice"><b>BoxOffice:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.BoxOffice}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Production"><b>Production:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Production}</div>
+                    </dd>
+                    <dt class="slds-dl_inline__label">
+                        <p class="slds-truncate" title="Website"><b>Website:</b></p>
+                    </dt>
+                    <dd class="slds-dl_inline__detail">
+                        <div class="wrap">{movie.Website}</div>
+                    </dd>
+                </dl>
             </template>
-        </template>
-	</lightning-card>
+            <template if:false={hasResults}>
+                <template if:true={movieNotSelected}>
+                    <div class="slds-text-heading_small">Search and select a movie above to see its details!</div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
 </template>
