@@ -1,5 +1,5 @@
 <template>
-    <lightning-card title="Movies" icon-name="custom:custom11">
+    <lightning-card title="Search" icon-name="custom:custom11" hidden={hideSearch}>
 		<div class="slds-card__body slds-card__body_inner">
 			<lightning-input type="search"
 				onchange={handleSearchTermChange}
@@ -11,10 +11,10 @@
 			</lightning-input>
 				<!-- Start movie list -->
 				<template if:true={movies}>
-					<lightning-layout multiple-rows="true" pull-to-boundary="small">
+					<lightning-layout multiple-rows="true" pull-to-boundary="medium">
 						<template for:each={movies} for:item="movie">
 							<lightning-layout-item key={movie.imdbID} size="3" class="slds-var-p-around_x-small">
-								<c-movie-tile movie={movie}></c-movie-tile>
+								<c-movie-tile movie={movie} onhidesearch={handleHideSearch}></c-movie-tile>
 							</lightning-layout-item>
 						</template>
 					</lightning-layout>
@@ -26,5 +26,12 @@
 				<div class="slds-text-heading_small">{error}</div>
 			</template>
 		</div>
-	</lightning-card>    
+	</lightning-card>
+	<template if:true={hideSearch}>
+		<lightning-card title="Detailed view" icon-name="custom:custom3">
+			<div class="slds-m-around_xxx-small">
+				<lightning-button variant="brand-outline" label="Back" title="Go back to search" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+			</div> 
+		</lightning-card>
+	</template>
 </template>

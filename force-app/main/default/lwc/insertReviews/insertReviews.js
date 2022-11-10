@@ -1,5 +1,5 @@
 import { LightningElement, track, wire } from 'lwc';
-import { subscribe, MessageContext, unsubscribe, createMessageContext, releaseMessageContext, publish  } from 'lightning/messageService';
+import { subscribe, MessageContext, unsubscribe, createMessageContext, publish  } from 'lightning/messageService';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import REFRESH_REVIEWS from "@salesforce/messageChannel/refreshReviews__c";
 import SEND_MOVIE_ID from "@salesforce/messageChannel/sendMovieId__c";
@@ -97,10 +97,6 @@ export default class InsertReviews extends LightningElement {
 
 	get hasResults(){
 		return (this.movie !== undefined);
-	}
-
-	get movieNotSelected(){
-		return (this.movieTitle === '');
 	}
 
 }

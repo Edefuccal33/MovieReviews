@@ -2,11 +2,7 @@
     <!-- Start movie tile -->
 	<lightning-card title={movie.Title} class="movie-tile" onclick={handleOpenRecordClick}>
 		<div class="slds-var-p-horizontal_small movie-tile-body">
-			<div class="slds-media">
-				<div class="slds-media__figure">
-					<img src={movie.Poster} alt="Movie poster" class="movie-silhouette"/>
-				</div>
-			</div>
+			<img src={movie.Poster} alt="Movie poster" class="movie-silhouette"/>
 		</div>
 	</lightning-card>
 	<!-- End movie tile -->   

@@ -1,5 +1,5 @@
 <template>
-    <lightning-card title="Make your review" icon-name="custom:custom9">
+    <lightning-card title="Make your review" icon-name="custom:custom9" hidden={movieNotSelected}>
         <template if:false={movieNotSelected}>
             <div class="slds-p-around_x-small">
                 <lightning-record-edit-form object-api-name="Review__c"

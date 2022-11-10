@@ -1,24 +1,20 @@
 import { NavigationMixin } from 'lightning/navigation';
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, track } from 'lwc';
 import { createMessageContext, releaseMessageContext, publish } from 'lightning/messageService';
 import SEND_MOVIE_ID from "@salesforce/messageChannel/sendMovieId__c";
-/** BearController.searchBears(searchTerm) Apex method */
-import searchMovies from '@salesforce/apex/ReviewControllerNoRest.getMovies'; //@salesforce/apex/BearController.searchBears';
+import searchMovies from '@salesforce/apex/ReviewControllerNoRest.getMovies';
 export default class MovieList extends NavigationMixin(LightningElement) {
 	movieTitle = '';
 	movies;
 	context = createMessageContext();
+	@track hideSearch;
+
+	handleHideSearch(e){
+		this.hideSearch = e.detail;
+	}
 
 	disconnectedCallback(){
         releaseMessageContext(this.context);
-    }
-
-	handleOnClick() {
-        const idToSend = {
-            movieIdToSend: '',
-            movieTitle: ''
-        };
-        publish(this.context, SEND_MOVIE_ID, idToSend);
     }
 
 	@wire(searchMovies, {movieTitle: '$movieTitle'}) 
@@ -51,17 +47,20 @@ export default class MovieList extends NavigationMixin(LightningElement) {
 		return (this.movies.length > 0);
 	}
 
-	// handleMovieView(event) {
-	// 	// Get bear record id from bearview event
-	// 	const movieId = event.detail;
-	// 	// Navigate to bear record page
-	// 	this[NavigationMixin.Navigate]({
-	// 		type: 'standard__recordPage',
-	// 		attributes: {
-	// 			recordId: movieId,
-	// 			objectApiName: 'movie',
-	// 			actionName: 'view',
-	// 		},
-	// 	});
-	// }
+	handleClick(){
+		this.hideSearch = false;
+		//this.template.querySelector('lightning-input').focus();
+		const message = {
+            movieIdToSend:'',
+            movieTitle:''
+        };
+        publish(this.context, SEND_MOVIE_ID, message);
+		// this.searchTerm = '';
+		// this.movieTitle = '';
+		//let elem = this.template.querySelector("lightning-input-field[data-fieldname='Amount']");
+		let elem = this.template.querySelector('lightning-input');
+		// eslint-disable-next-line @lwc/lwc/no-async-operation
+		setTimeout(() => elem.focus());
+	}
+
 }

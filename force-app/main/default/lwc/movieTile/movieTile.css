@@ -1,13 +1,21 @@
 :host {
-	--sds-c-card-color-background: linear-gradient(180deg, rgba(255,255,255,1) 80%, #fae8d2 100%);
+	--sds-c-card-color-background: linear-gradient(180deg,rgba(255,255,255,1), rgba(240,255,255,1) 50%, rgba(10,50,50,1) 100%);
 }
 .movie-tile {
 	display: block;
-	border: 1px solid #d2955d;
+	border: 1px solid rgb(40, 39, 39);
 	border-radius: .25rem;
-	background-color: #fae8d2;
+	background-color: rgba(10,50,50,1);
+	height: 250px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 .movie-silhouette {
-	height: 120px;
-	width: 100px;
+	height: auto;
+	width: auto;
+	max-height: 200px;
+}
+:hover{
+	cursor: pointer;
+	transform: scale(1.04);
 }
