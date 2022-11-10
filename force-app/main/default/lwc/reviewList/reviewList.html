@@ -4,7 +4,7 @@
 			<template if:true={hasResults}>
 				<ul class="slds-has-dividers_bottom-space">
 					<li class="slds-item">
-						<lightning-badge label={countReviews} class="slds-badge_inverse"></lightning-badge> <b>Reviews for {movieTitle}!</b>
+						<lightning-badge label={countReviews} class="slds-badge_inverse"></lightning-badge> <b>Reviews for: </b><i>{movieTitle}</i>
 					</li>
 				</ul>
 				<ul class="slds-has-dividers_bottom-space">
@@ -12,8 +12,9 @@
 					<template for:each={reviews} for:item="review">
 						<lightning-tile key={review.Id} label={review.Author__c} href="" type="media">
 							<lightning-avatar slot="media" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" fallback-icon-name="standard:person_account" alternative-text="Bruce Wayne"></lightning-avatar>
+							<li class="slds-item"><i>On: {review.CreatedDate__c}</i></li>
 							<ul class="slds-list_horizontal slds-has-dividers_right">
-								<li class="slds-item">{review.Comment__c}</li>
+								<li class="slds-item"><i>{review.Comment__c}</i></li>
 								<li class="slds-item">
 									<lightning-badge label={review.Qualification__c} icon-name="custom:custom11"></lightning-badge>
 								</li>
@@ -28,7 +29,7 @@
 					<div class="slds-text-heading_small">No reviews for <b>{movieTitle}</b>. Create the first one!</div>
 				</template>
 				<template if:true={movieNotSelected}>
-					<div class="slds-text-heading_small">Search and select a movie above to see its reviews!</div>
+					<div class="slds-text-heading_small">Search and select a movie to see its reviews!</div>
 				</template>
 			</template>
 		</div>

@@ -50,7 +50,7 @@ public class ReviewService {
     }
     
     private static String emptyAuthorNameToAnonymus(String authorName){
-        if(String.isBlank(authorName)){
+        if(String.isBlank(authorName) || String.isEmpty(authorName) || authorName == null){
             authorName = ANONYMOUS_DEFAULT_AUTHOR_NAME;
         }
         return authorName;

@@ -1,0 +1,27 @@
+<template>
+    <lightning-card title="Make your review" icon-name="custom:custom9">
+        <template if:false={movieNotSelected}>
+            <div class="slds-p-around_x-small">
+                <p2>{movieTitle}</p2>
+                <lightning-record-edit-form object-api-name="Review__c"
+                    onsubmit ={handleSubmit}>
+                    <lightning-messages>
+                    </lightning-messages>
+                    <lightning-input-field field-name="Author__c">
+                    </lightning-input-field>
+                    <lightning-input-field field-name="Qualification__c">
+                    </lightning-input-field>
+                    <lightning-input-field field-name="Comment__c">
+                    </lightning-input-field>
+                    <lightning-button class="slds-p-around_xx-small" variant="brand" type="submit" name="submit" label="Submit">
+                    </lightning-button>
+                </lightning-record-edit-form>
+            </div>
+        </template>
+        <template if:true={movieNotSelected}>
+            <div class="slds-p-around_x-small">
+                <div class="slds-text-heading_small">Search and select a movie to create your review!</div>
+            </div>
+        </template>
+    </lightning-card>
+</template>
