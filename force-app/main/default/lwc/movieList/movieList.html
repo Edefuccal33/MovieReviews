@@ -1,5 +1,5 @@
 <template>
-    <lightning-card title="Search" icon-name="custom:custom11" hidden={hideSearch}>
+    <lightning-card title="Search" icon-name="standard:search" hidden={hideSearch}>
 		<div class="slds-card__body slds-card__body_inner">
 			<lightning-input type="search"
 				onchange={handleSearchTermChange}
@@ -28,7 +28,7 @@
 		</div>
 	</lightning-card>
 	<template if:true={hideSearch}>
-		<lightning-card title="Detailed view" icon-name="custom:custom3">
+		<lightning-card title="Detailed view" icon-name="standard:work_forecast">
 			<div class="slds-m-around_xxx-small">
 				<lightning-button variant="brand-outline" label="Back" title="Go back to search" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
 			</div> 

@@ -60,6 +60,7 @@ public class MovieOMDbAPIService {
         HttpRequest request = new HttpRequest();
         request.setEndpoint(endPoint);
         request.setMethod(GET_REQUEST_METHOD);
+        request.setTimeout(3000);
         HttpResponse response;
         try{
             response = http.send(request);

@@ -6,7 +6,7 @@ public class ErrorHandler {
     private static final String ERROR_API_KEY_INVALID = 'Invalid API key!';
     private static final String ERROR_MOVIE_TITLE_NOT_FOUND = 'Movie not found!';
     //Custom error message for Time Out OMDb API:
-    private static final String ERROR_TIME_OUT_CALL_OUT = 'Time out. Seems like it is taking too long for OMDb API send a response.';
+    private static final String ERROR_TIME_OUT_CALL_OUT = 'OMDb API is taking too long to response. Try another title!';
     private static final String NULL_MOVIE_TITLE = 'Please enter a movie title to retrieve movies';
     private static final String NULL_MOVIE_ID = 'Search and select any movie to see its reviews.';
     private static final String UNKNOWN_ERROR_MESSAGE = 'Cannot find matches, please try with another search term.';
