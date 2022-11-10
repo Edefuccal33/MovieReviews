@@ -32,7 +32,6 @@ export default class InsertReviews extends LightningElement {
     callApexMethod(){
         createReview({movieId: this.receivedMovieId, authorName: this.authorName, comment: this.comment, qualification: this.qualification})
             .then(data => {
-                console.log('data ', data);
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Success',
@@ -47,7 +46,6 @@ export default class InsertReviews extends LightningElement {
                 publish(this.context, REFRESH_REVIEWS, message);
             })
             .catch(error => {
-                console.log('error ', error);
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
@@ -67,10 +65,6 @@ export default class InsertReviews extends LightningElement {
             } );
         }
     }
-    // handleSuccess(event) {
-    //     console.log('onsuccess event recordEditForm', event.detail.id);
-    //     // @wire(createReview, {movieId: '$receivedMovieId'}) 
-    // }
 
     suscribeMovieId(){
 		if(this.subscription){

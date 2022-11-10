@@ -22,7 +22,6 @@ export default class MovieList extends NavigationMixin(LightningElement) {
 		if (error) {
 			this.movies = [];
 			this.error = error.body.message;
-			console.log(error);
 		} else if (data) {
 			this.movies = data;
 			this.error = [];

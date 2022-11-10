@@ -64,24 +64,6 @@ export default class ReviewList extends LightningElement {
 			this.error = result.error.body.message;
 		}
 	}
-	
-	// @wire(getReviews, {movieId: '$receivedMovieId'})
-	// loadMovie({ error, data }) {
-	// 	if (error) {
-	// 		this.reviews = [];
-	// 		this.error = error.body.message;
-	// 		console.log(error);
-	// 	} else if (data) {
-	// 		this.reviews = data;
-	// 		this.error = [];
-	// 	}
-    // }
-
-	// handleApexRefresh(){
-	// 	if(this.refresh){
-	// 		refreshApex(this.wiredReviewsResult);
-	// 	}
-	// }
 
 	get hasResults(){
 		return (this.reviews.length > 0);
