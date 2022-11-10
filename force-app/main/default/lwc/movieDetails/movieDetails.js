@@ -5,6 +5,7 @@ import SEND_MOVIE_ID from "@salesforce/messageChannel/sendMovieId__c";
 
 export default class MovieDetails extends LightningElement {
     movie;
+	isLoading = true;
     @track receivedMovieId = '';
 	@track movieTitle='';
     @wire(MessageContext)
@@ -25,6 +26,7 @@ export default class MovieDetails extends LightningElement {
     }
 
 	handleId(message){
+		this.isLoading = true;
 		this.receivedMovieId = JSON.parse(JSON.stringify(message)).movieIdToSend;
 		this.movieTitle = JSON.parse(JSON.stringify(message)).movieTitle;
 	}
@@ -38,11 +40,10 @@ export default class MovieDetails extends LightningElement {
 		if (error) {
 			this.movie = undefined;
 			this.error = error.body.message;
-			console.log(error);
 		} else if (data) {
 			this.movie = data;
 			this.error = [];
-            console.log(this.movie);
+			this.isLoading = false;
 		}
 	}
 

@@ -12,7 +12,17 @@
 					<template for:each={reviews} for:item="review">
 						<lightning-tile key={review.Id} label={review.Author__c} href="" type="media">
 							<lightning-avatar slot="media" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" fallback-icon-name="standard:person_account" alternative-text="Bruce Wayne"></lightning-avatar>
-							<li class="slds-item"><i>On: {review.CreatedDate__c}</i></li>
+							<li class="slds-item">
+								<lightning-formatted-date-time
+									value={review.CreatedDate__c}
+									year="numeric"
+									day="2-digit"
+									month="long"
+									hour="2-digit"
+									minute="2-digit">
+								</lightning-formatted-date-time>
+								<!--<i>On: {review.CreatedDate__c}</i>-->
+							</li>
 							<ul class="slds-list_horizontal slds-has-dividers_right">
 								<li class="slds-item"><i>{review.Comment__c}</i></li>
 								<li class="slds-item">

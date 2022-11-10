@@ -2,7 +2,6 @@
     <lightning-card title="Make your review" icon-name="custom:custom9">
         <template if:false={movieNotSelected}>
             <div class="slds-p-around_x-small">
-                <p2>{movieTitle}</p2>
                 <lightning-record-edit-form object-api-name="Review__c"
                     onsubmit ={handleSubmit}>
                     <lightning-messages>

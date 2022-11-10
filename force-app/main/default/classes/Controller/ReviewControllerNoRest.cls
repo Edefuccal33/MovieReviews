@@ -23,7 +23,7 @@ public with sharing class ReviewControllerNoRest {
             System.debug(movie);
             return ReviewService.getMoviesWithReviewsByMovieId(movieId);
     	}catch(APICustomException e){
-            throw new AuraHandledException(JSON.Serialize(e));
+            throw new AuraHandledException(e.getMessage());
         }catch(Exception e){
             throw new AuraHandledException(JSON.Serialize(errorHandler.createServerUnknownError()));
         }
@@ -34,7 +34,7 @@ public with sharing class ReviewControllerNoRest {
         try {
             return ReviewService.getReviewsByMovieId(movieId);
         }catch (APICustomException e) {
-            throw new AuraHandledException(JSON.Serialize(e));
+            throw new AuraHandledException(e.getMessage());
         }catch(Exception e){
             throw new AuraHandledException(JSON.Serialize(errorHandler.createServerUnknownError()));
         }
@@ -45,7 +45,7 @@ public with sharing class ReviewControllerNoRest {
         try {
             Id recordId = reviewService.createReview(movieId, authorName, comment, qualification);
         }catch (APICustomException e) {
-            throw new AuraHandledException(JSON.Serialize(e));
+            throw new AuraHandledException(e.getMessage());
         }catch(Exception e){
             throw new AuraHandledException(JSON.Serialize(errorHandler.createServerUnknownError()));
         }

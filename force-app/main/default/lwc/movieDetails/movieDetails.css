@@ -24,3 +24,13 @@
     margin-left: 4px;
     padding-left: 4px;
 }
+.exampleHolder{
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.slds-dl_inline{
+    margin-left: 8px;
+    margin-right: 8px;
+}

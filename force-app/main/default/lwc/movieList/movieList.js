@@ -39,7 +39,7 @@ export default class MovieList extends NavigationMixin(LightningElement) {
 		// eslint-disable-next-line @lwc/lwc/no-async-operation
 		this.delayTimeout = setTimeout(() => {
 			this.movieTitle = searchTerm;
-		}, 300);
+		}, 100);
 		const message = {
             movieIdToSend:'',
             movieTitle:''

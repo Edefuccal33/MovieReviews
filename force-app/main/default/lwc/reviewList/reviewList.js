@@ -8,7 +8,7 @@ export default class ReviewList extends LightningElement {
     reviews = [];
 	subscription = null;
 	refreshSubscription = null;
-	//@track refresh = false;
+	@track refresh = false;
 	@track receivedMovieId = '';
 	@track movieTitle='';
 	@wire(MessageContext)
@@ -21,7 +21,6 @@ export default class ReviewList extends LightningElement {
 		if(this.subscription){
 			return;
 		}
-		console.log(this.reviews);
 		this.subscription = subscribe(this.messageContext, SEND_MOVIE_ID, (message) => {
 			this.handleId(message);
 		});
@@ -42,7 +41,6 @@ export default class ReviewList extends LightningElement {
 
 	handleRefresh(message){
 		this.refresh = JSON.parse(JSON.stringify(message)).refresh;
-		console.log(this.receivedMovieId);
 		if(this.refresh){
 			refreshApex(this.wiredReviewsResult);	
 		} 

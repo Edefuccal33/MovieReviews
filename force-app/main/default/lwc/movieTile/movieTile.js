@@ -4,7 +4,6 @@ import SEND_MOVIE_ID from "@salesforce/messageChannel/sendMovieId__c";
 
 export default class MovieTile extends LightningElement {
 	@api movie;
-
     context = createMessageContext();
 
     disconnectedCallback(){
@@ -12,11 +11,6 @@ export default class MovieTile extends LightningElement {
     }
 
     handleOpenRecordClick() {
-        const selectEvent = new CustomEvent('movieview', {
-            detail: this.movie.imdbID
-        }); //todo este evento de arriba lo pordía sacar.
-        this.dispatchEvent(selectEvent);
-        console.log(this.movie.imdbID);
         const message = {
             movieIdToSend: this.movie.imdbID,
             movieTitle: this.movie.Title
